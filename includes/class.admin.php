@@ -27,8 +27,11 @@ if ( !class_exists( 'lbkFAQs_Admin' ) ) {
          * @static
          */
         private function hooks() {
-            add_action( 'add_meta_boxes', array( $this, 'lbk_custom_faqs') );
-            add_action( 'save_post', array( $this, 'lbk_custom_faq_save') );
+            add_action( 'add_meta_boxes', array( $this, 'lbk_custom_faqs' ) );
+            add_action( 'save_post', array( $this, 'lbk_custom_faq_save' ) );
+            add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_script' ) );
+            add_filter( 'script_loader_tag', array( $this, 'add_id_to_script' ), 10, 3 );
+            add_action( 'init', array( $this, 'cyb_register_meta_fields' ) );
         }
 
         /**
@@ -75,15 +78,16 @@ if ( !class_exists( 'lbkFAQs_Admin' ) ) {
                     </tr>
                 </thead>
                 <tbody>
-                <?php $c=0; ?>
+                <?php $c = 0; ?>
                 <?php if ($custom_faqs > 0) : ?>
                     <?php foreach($custom_faqs as $faq) : ?>
                         <tr id="faq-<?php echo $c ?>">
+                            <input type="hidden" class="faq-id" value="<?php echo $c; ?>">
                             <td class="faqData">
-                                <input name="lbk_faq_custom[<?php echo $c; ?>][question]" value="<?php echo $faq['question']; ?>" style="width:100%">
+                                <input name="lbk_faq_custom[<?php echo $c; ?>][question]" value="<?php echo esc_textarea($faq['question']); ?>" style="width:100%">
                             </td>
                             <td class="faqData">
-                                <input name="lbk_faq_custom[<?php echo $c; ?>][answer]" value="<?php echo $faq['answer']; ?>" style="width:100%">
+                                <input name="lbk_faq_custom[<?php echo $c; ?>][answer]" value="<?php echo esc_textarea($faq['answer']); ?>" style="width:100%">
                             </td>
                             <td style="text-align:center;">
                                 <a href="#" class="button" id="lbk_delete_faq" data-id="<?php echo $c; ?>">Delete</a>
@@ -94,8 +98,6 @@ if ( !class_exists( 'lbkFAQs_Admin' ) ) {
                 <?php endif; ?>
                 </tbody>
             </table>
-            
-            <script type='text/javascript' src='<?php echo LBK_FAQ_URL.'js/admin.js' ?>' data-count='<?php echo $c; ?>' id='lbk-custom-faq-script'></script>
             <?php
         }
 
@@ -125,7 +127,55 @@ if ( !class_exists( 'lbkFAQs_Admin' ) ) {
                 delete_post_meta($post_id, '_lbk_custom_faqs');
             }
         }
-    }
 
+        /**
+         * Enqueue scripts
+         * 
+         * @access private
+         * @since 1.0
+         * @static
+         */
+        public function enqueue_script() {
+            wp_enqueue_script('lbk-custom-faq', LBK_FAQ_URL.'js/admin.js', array(), '1.0.0', 'all' );
+        }
+ 
+        /**
+         * Change attributes script tag
+         * 
+         * @access private
+         * @since 1.0
+         * @static
+         */
+        public function add_id_to_script( $tag, $handle, $src ) {
+            if ( 'lbk-custom-faq' === $handle ) {
+                $tag = '<script type="text/javascript" src="' . esc_url( $src ) . '" id="lbk-custom-faq-script"></script>';
+            }
+        
+            return $tag;
+        }
+
+        /**
+         * Sanitize faqs field
+         * 
+         * @access private
+         * @since 1.0
+         * @static
+         */
+        public function cyb_register_meta_fields() {
+            $args = array(
+                'sanitize_callback' => 'sanitize_faqs_field'
+            );
+            
+            register_meta( 'post', '_lbk_custom_faqs', $args );
+        }
+
+        function sanitize_faqs_field( $meta_value ) {
+            foreach ( (array) $meta_value as $key => $value ) {
+                $meta_value[$key] = sanitize_text_field( $value );
+            }
+          
+            return $meta_value;
+        }
+    }
     new lbkFAQs_Admin();
 }

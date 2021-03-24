@@ -1,11 +1,16 @@
 (function($) {
     $(document).ready(function() {
-        var count = $('#lbk-custom-faq-script').attr('data-count');
+        $input_id = $('#lbk_list_faqs tbody tr:last-child input.faq-id');
+        var count = $input_id.val();
+        if ( typeof(count) === 'undefined' ) count = 0;
+        console.log(count);
+        console.log($input_id);
         $("#add_new_faq_button").click(function(e) {
             e.preventDefault();
 
             $("#lbk_list_faqs > tbody:last-child").append(`
                 <tr id="faq-${count}">
+                    <input type="hidden" class="faq-id" value="${count}">
                     <td class="faqData">
                         <input name="lbk_faq_custom[${count}][question]" value="" placeholder="Question?" style="width:100%">
                     </td>

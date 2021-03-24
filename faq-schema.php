@@ -181,10 +181,10 @@ if ( !class_exists('lbkFAQs') ) {
                                 <?php foreach($custom_faqs as $faq) : ?>
                                 {
                                     "@type": "Question",
-                                    "name": "<?php echo $faq['question']; ?>",
+                                    "name": "<?php esc_html_e($faq['question']); ?>",
                                     "acceptedAnswer": {
                                             "@type": "Answer",
-                                            "text": "<?php echo $faq['answer']; ?>"
+                                            "text": "<?php esc_html_e($faq['answer']); ?>"
                                         }
                                 }<?php if(++$i !== $num_custom_faqs) echo ","; ?>
                                 <?php endforeach; ?>
