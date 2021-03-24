@@ -31,7 +31,7 @@ if ( !class_exists( 'lbkFAQs_Admin' ) ) {
             add_action( 'save_post', array( $this, 'lbk_custom_faq_save' ) );
             add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_script' ) );
             add_filter( 'script_loader_tag', array( $this, 'add_id_to_script' ), 10, 3 );
-            add_action( 'init', array( $this, 'cyb_register_meta_fields' ) );
+            add_action( 'init', array( $this, 'lbk_register_meta_fields' ) );
         }
 
         /**
@@ -161,7 +161,7 @@ if ( !class_exists( 'lbkFAQs_Admin' ) ) {
          * @since 1.0
          * @static
          */
-        public function cyb_register_meta_fields() {
+        public function lbk_register_meta_fields() {
             $args = array(
                 'sanitize_callback' => 'sanitize_faqs_field'
             );
