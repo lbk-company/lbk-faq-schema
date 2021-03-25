@@ -119,6 +119,7 @@ if ( !class_exists('lbkFAQs') ) {
         private static function includes() {
             if ( is_admin() ) {
                 require_once( LBK_FAQ_PATH . 'includes/class.admin.php' );
+                require_once( LBK_FAQ_PATH . 'includes/function.php' );
             }
             // require_once( LBK_FAQ_PATH . 'includes/public-function.php' );
             // require_once( LBK_FAQ_PATH . 'includes/template.php' );

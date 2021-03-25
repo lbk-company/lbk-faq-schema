@@ -3,8 +3,7 @@
         $input_id = $('#lbk_list_faqs tbody tr:last-child input.faq-id');
         var count = $input_id.val();
         if ( typeof(count) === 'undefined' ) count = 0;
-        console.log(count);
-        console.log($input_id);
+        else count++;
         $("#add_new_faq_button").click(function(e) {
             e.preventDefault();
 

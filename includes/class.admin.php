@@ -30,8 +30,7 @@ if ( !class_exists( 'lbkFAQs_Admin' ) ) {
             add_action( 'add_meta_boxes', array( $this, 'lbk_custom_faqs' ) );
             add_action( 'save_post', array( $this, 'lbk_custom_faq_save' ) );
             add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_script' ) );
-            add_filter( 'script_loader_tag', array( $this, 'add_id_to_script' ), 10, 3 );
-            add_action( 'init', array( $this, 'lbk_register_meta_fields' ) );
+            // add_action( 'init', array( $this, 'lbk_register_meta_fields' ) );
         }
 
         /**
@@ -64,6 +63,7 @@ if ( !class_exists( 'lbkFAQs_Admin' ) ) {
         
             $custom_faqs = get_post_meta( $post_id, '_lbk_custom_faqs', true );
             if (!$custom_faqs) $custom_faqs = array();
+            var_dump($custom_faqs);
         
             wp_nonce_field( 'lbk_custom_faqs_nonce'.$post_id, 'lbk_custom_faqs_nonce' );
             ?>
@@ -122,7 +122,7 @@ if ( !class_exists( 'lbkFAQs_Admin' ) ) {
             }
         
             if (isset($_POST['lbk_faq_custom'])) {
-                update_post_meta($post_id, '_lbk_custom_faqs', $_POST['lbk_faq_custom']);
+                update_post_meta($post_id, '_lbk_custom_faqs', sanitize_faqs_field( $_POST['lbk_faq_custom'] ));
             } else {
                 delete_post_meta($post_id, '_lbk_custom_faqs');
             }
@@ -138,21 +138,6 @@ if ( !class_exists( 'lbkFAQs_Admin' ) ) {
         public function enqueue_script() {
             wp_enqueue_script('lbk-custom-faq', LBK_FAQ_URL.'js/admin.js', array(), '1.0.0', 'all' );
         }
- 
-        /**
-         * Change attributes script tag
-         * 
-         * @access private
-         * @since 1.0
-         * @static
-         */
-        public function add_id_to_script( $tag, $handle, $src ) {
-            if ( 'lbk-custom-faq' === $handle ) {
-                $tag = '<script type="text/javascript" src="' . esc_url( $src ) . '" id="lbk-custom-faq-script"></script>';
-            }
-        
-            return $tag;
-        }
 
         /**
          * Sanitize faqs field
@@ -161,26 +146,13 @@ if ( !class_exists( 'lbkFAQs_Admin' ) ) {
          * @since 1.0
          * @static
          */
-        public function lbk_register_meta_fields() {
-            $args = array(
-                'sanitize_callback' => 'sanitize_faqs_field'
-            );
+        // public function lbk_register_meta_fields() {
+        //     $args = array(
+        //         'sanitize_callback' => 'sanitize_faqs_field'
+        //     );
             
-            register_meta( 'post', '_lbk_custom_faqs', $args );
-        }
-
-        function sanitize_faqs_field( $meta_value ) {
-            foreach ( (array) $meta_value as $key => $value ) {
-                if ( is_array($value) ) {
-                    $meta_value[$key] = sanitize_faqs_field( $value );
-                }
-                else {
-                    $meta_value[$key] = sanitize_text_field( $value );
-                }
-            }
-          
-            return $meta_value;
-        }
+        //     register_meta( 'post', '_lbk_custom_faqs', $args );
+        // }
     }
     new lbkFAQs_Admin();
 }
