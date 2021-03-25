@@ -122,7 +122,7 @@ if ( !class_exists( 'lbkFAQs_Admin' ) ) {
             }
         
             if (isset($_POST['lbk_faq_custom'])) {
-                update_post_meta($post_id, '_lbk_custom_faqs', sanitize_faqs_field( $_POST['lbk_faq_custom'] ));
+                update_post_meta($post_id, '_lbk_custom_faqs', lbk_sanitize_faqs_field( $_POST['lbk_faq_custom'] ));
             } else {
                 delete_post_meta($post_id, '_lbk_custom_faqs');
             }
