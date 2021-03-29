@@ -7,18 +7,18 @@
  * @copyright 2021 LBK
  * @license GPL-2.0-or-later
  * @category plugin
- * @version 1.0.0
+ * @version 1.0.1
  * 
  * @wordpress-plugin
  * Plugin Name:       LBK FAQs Schema
  * Plugin URI:        https://lbk.vn/
  * Description:       This plugin will create FAQs Schema for Post
- * Version:           1.0.0
- * Requires at least: 1.0.0
- * Requires PHP:      7.4
+ * Version:           1.0.1
+ * Requires at least: 1.0.1
+ * Requires PHP:      8.0
  * Author:            Briki - LBK
  * Author             URI: https://facebook.com/vuong.briki
- * Text Domain:       lbk-fc
+ * Text Domain:       lbk-crawler
  * License:           GPLv2 or later
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Domain path:       /languages/
@@ -51,7 +51,7 @@ if ( !class_exists('lbkFAQs') ) {
          * @since 1.0
          * @var string
          */
-        const VERSION = '1.0.0';
+        const VERSION = '1.0.1';
 
         /**
          * Stores the instance of this class
@@ -133,7 +133,7 @@ if ( !class_exists('lbkFAQs') ) {
          * @static
          */
         private static function hooks() {
-            // wp_enqueue_style( 'lbk-fc-style', LBK_FC_URL . 'assets/css/style.css', array( 'wp-color-picker' ), lbkFAQs::VERSION );
+            // wp_enqueue_style( 'lbk-faq-style', LBK_FAQ_URL . 'assets/css/style.css', array( 'wp-color-picker' ), lbkFAQs::VERSION );
             add_action( 'wp_footer', array( __CLASS__, 'add_faq_script') );
         }
 
