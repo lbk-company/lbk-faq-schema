@@ -63,7 +63,6 @@ if ( !class_exists( 'lbkFAQs_Admin' ) ) {
         
             $custom_faqs = get_post_meta( $post_id, '_lbk_custom_faqs', true );
             if (!$custom_faqs) $custom_faqs = array();
-            var_dump($custom_faqs);
         
             wp_nonce_field( 'lbk_custom_faqs_nonce'.$post_id, 'lbk_custom_faqs_nonce' );
             ?>
