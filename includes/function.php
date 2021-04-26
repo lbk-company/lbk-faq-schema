@@ -7,6 +7,7 @@ if ( !function_exists('lbk_sanitize_faqs_field') ) {
                 $meta_value[$key] = lbk_sanitize_faqs_field( $value );
             }
             else {
+                if ( $key == 'answer' ) $meta_value[$key] = sanitize_textarea_field( $value );
                 $meta_value[$key] = sanitize_text_field( $value );
             }
         }

@@ -14,7 +14,7 @@
                         <input name="lbk_faq_custom[${count}][question]" value="" placeholder="Question?" style="width:100%">
                     </td>
                     <td class="faqData">
-                        <input name="lbk_faq_custom[${count}][answer]" value="" placeholder="Answer" style="width:100%">
+                        <textarea name="lbk_faq_custom[${count}][answer]" value="" placeholder="Answer" style="width:100%"></textarea>
                     </td>
                     <td align="center">
                         <a href="#" class="button" id="lbk_delete_faq" data-id="${count}">Delete</a>

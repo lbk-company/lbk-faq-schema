@@ -86,7 +86,7 @@ if ( !class_exists( 'lbkFAQs_Admin' ) ) {
                                 <input name="lbk_faq_custom[<?php echo $c; ?>][question]" value="<?php echo esc_textarea($faq['question']); ?>" style="width:100%">
                             </td>
                             <td class="faqData">
-                                <input name="lbk_faq_custom[<?php echo $c; ?>][answer]" value="<?php echo esc_textarea($faq['answer']); ?>" style="width:100%">
+                                <textarea name="lbk_faq_custom[<?php echo $c; ?>][answer]" value="<?php echo esc_textarea($faq['answer']); ?>" style="width:100%"><?php echo esc_textarea($faq['answer']); ?></textarea>
                             </td>
                             <td style="text-align:center;">
                                 <a href="#" class="button" id="lbk_delete_faq" data-id="<?php echo $c; ?>">Delete</a>
