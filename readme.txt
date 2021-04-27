@@ -2,9 +2,9 @@
 Contributors: lbksolution
 Donate link: https://lbk.vn/
 Tags: faq schema, lbk, faq, faqpage
-Requires at least: 1.0.4
+Requires at least: 1.0.5
 Tested up to: 5.7
-Stable tag: 1.0.4
+Stable tag: 1.0.5
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -59,6 +59,9 @@ It is needless to say.
 
 = 1.0.4 04/26/2021 =
 * Change input answer to textarea.
+
+= 1.0.5 04/27/2021 =
+* fix textarea.
 
 == Upgrade Notice ==
 * Add FAQs for custom post type

@@ -7,14 +7,14 @@
  * @copyright 2021 LBK
  * @license GPL-2.0-or-later
  * @category plugin
- * @version 1.0.4
+ * @version 1.0.5
  * 
  * @wordpress-plugin
  * Plugin Name:       LBK FAQs Schema
  * Plugin URI:        https://lbk.vn/
  * Description:       This plugin will create FAQs Schema for Post
- * Version:           1.0.4
- * Requires at least: 1.0.4
+ * Version:           1.0.5
+ * Requires at least: 1.0.5
  * Requires PHP:      7.4
  * Author:            Briki - LBK
  * Author             URI: https://facebook.com/vuong.briki
@@ -51,7 +51,7 @@ if ( !class_exists('lbkFAQs') ) {
          * @since 1.0
          * @var string
          */
-        const VERSION = '1.0.4';
+        const VERSION = '1.0.5';
 
         /**
          * Stores the instance of this class
